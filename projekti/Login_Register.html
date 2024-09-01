@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log In and Register</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        direction: rtl; /* Arabic text direction */
+      }
+
+      label {
+        display: block;
+        text-align: right;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+
+      input {
+        width: 90%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        text-align: center;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #218838;
+      }
+
+      .container {
+        width: 300px;
+        margin: 0 auto;
+        padding: 80px;
+        background-color: #4b4a4a0f;
+        border-radius: 50px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .form-container {
+        display: none;
+      }
+
+      .form-container.active {
+        display: block;
+      }
+
+      .switch-btn {
+        margin: 10px 0;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+      }
+      h2 {
+        background-color: rgba(0, 0, 0, 0.59);
+        color: #fff;
+        border-radius: 5px;
+        width: 100%;
+      }
+      .switch-btn:hover {
+        background-color: #0056b3;
+      }
+      img {
+        width: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2 id="form-title">Log In</h2>
+
+      <!-- Kirjautumislomake -->
+      <div id="login-form" class="form-container active">
+        <form action="/submit_login" method="post">
+          <label for="login_username"></label>
+          <input
+            type="text"
+            id="login_username"
+            name="username"
+            placeholder="Username"
+            required
+          />
+          <label for="login_password"></label>
+          <input
+            type="password"
+            id="login_password"
+            name="password"
+            placeholder="Password"
+            required
+          />
+          <button type="submit">Log In</button>
+        </form>
+      </div>
+
+      <!-- Rekisteröitymislomake -->
+      <div id="register-form" class="form-container">
+        <form action="/submit_registration" method="post">
+          <label for="register_username"></label>
+          <input
+            type="text"
+            id="register_username"
+            name="username"
+            placeholder="Username"
+            required
+          />
+          <label for="register_email"></label>
+          <input
+            type="email"
+            id="register_email"
+            name="email"
+            placeholder="Email"
+            required
+          />
+          <label for="register_password"></label>
+          <input
+            type="password"
+            id="register_password"
+            name="password"
+            placeholder="Password"
+            required
+          />
+          <label for="confirm_password"></label>
+          <input
+            type="password"
+            id="confirm_password"
+            name="confirm_password"
+            placeholder="Confirm Password"
+            required
+          />
+          <button type="submit">Sing Up</button>
+        </form>
+      </div>
+
+      <!-- Nappi lomakkeiden vaihtamiseen -->
+      <button id="switch-btn" class="switch-btn">
+        Don't have an account? Sign up now
+      </button>
+      <img src="owl.webp" alt="logo" />
+    </div>
+
+    <script>
+      const switchBtn = document.getElementById('switch-btn');
+      const loginForm = document.getElementById('login-form');
+      const registerForm = document.getElementById('register-form');
+      const formTitle = document.getElementById('form-title');
+
+      switchBtn.addEventListener('click', () => {
+        loginForm.classList.toggle('active');
+        registerForm.classList.toggle('active');
+
+        if (loginForm.classList.contains('active')) {
+          formTitle.textContent = 'Log In';
+          switchBtn.textContent = 'Do not have an account? Sign up now';
+        } else {
+          formTitle.textContent = 'Sing Up';
+          switchBtn.textContent = 'Do not have an account? Sign up now';
+        }
+      });
+    </script>
+  </body>
+</html>

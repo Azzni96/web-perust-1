@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        direction: rtl; /* Tekstin suunta arabiaksi */
+      }
+
+      .navbar {
+        background-color: #d7d3d355;
+        overflow: hidden;
+      }
+
+      .navbar a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+      }
+      .Register {
+        float: right;
+      }
+      .Home {
+        float: right;
+      }
+      .Content {
+        float: left;
+      }
+      .About {
+        float: left;
+      }
+
+      .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+
+      .section {
+        padding: 20px;
+        text-align: center; /* Tekstin tasaus oikealle */
+      }
+
+      #home {
+        background-color: #f1f1f1;
+      }
+
+      #content {
+        background-color: #e2e2e2;
+      }
+
+      #about {
+        background-color: #d3d3d3;
+      }
+      img {
+        width: 35px;
+        height: 35px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="Login_Register.html" class="Register">Register</a>
+      <a href="#home" class="Home">Home</a>
+      <a href="#content" class="Content">Content</a>
+      <a href="#about" class="About">About</a>
+      <a href="#"><img src="owl.webp" alt="logo" /></a>
+    </div>
+    <div></div>
+
+    <div id="home" class="section">
+      <h2>Home</h2>
+      <p>Welcome to the homepage of the website</p>
+    </div>
+
+    <div id="content" class="section">
+      <h2>Content</h2>
+      <p>Here you will find the content of the website</p>
+    </div>
+
+    <div id="about" class="section">
+      <h2>About</h2>
+      <p>This page contains information about the website.</p>
+    </div>
+  </body>
+</html>
