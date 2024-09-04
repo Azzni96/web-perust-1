@@ -1,6 +1,6 @@
 'use strict';
 import {restaurantModal, restaurantRow} from './components.js';
-import {fetchData} from './fetchData.js';
+import {fetchData} from './Fetchdata.js';
 import {apiURL} from './variables.js';
 
 const kohde = document.querySelector('tbody');
