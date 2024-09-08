@@ -19,6 +19,31 @@ const haeRavintolat = async () => {
   return await fetchData(apiURL + '/api/v1/restaurants');
 };
 
+document.addEventListener('DOMContentLoaded', async () => {
+  const restaurants = await haeRavintolat();
+
+  sodexoBTN.addEventListener('click', () => {
+    const filteredRestaurants = restaurants.filter(
+      (restaurant) => restaurant.company === 'Sodexo'
+    );
+    teeRavintolaLista(filteredRestaurants);
+  });
+
+  compassBTN.addEventListener('click', () => {
+    const filteredRestaurants = restaurants.filter(
+      (restaurant) => restaurant.company === 'Compass Group'
+    );
+    teeRavintolaLista(filteredRestaurants);
+  });
+
+  resetBTN.addEventListener('click', () => {
+    teeRavintolaLista(restaurants);
+  });
+
+  // Näytä kaikki ravintolat aluksi
+  teeRavintolaLista(restaurants);
+});
+
 const teeRavintolaLista = (restaurants) => {
   kohde.innerHTML = '';
 
@@ -58,28 +83,3 @@ const teeRavintolaLista = (restaurants) => {
     }
   });
 };
-
-document.addEventListener('DOMContentLoaded', async () => {
-  const restaurants = await haeRavintolat();
-
-  sodexoBTN.addEventListener('click', () => {
-    const filteredRestaurants = restaurants.filter(
-      (restaurant) => restaurant.company === 'Sodexo'
-    );
-    teeRavintolaLista(filteredRestaurants);
-  });
-
-  compassBTN.addEventListener('click', () => {
-    const filteredRestaurants = restaurants.filter(
-      (restaurant) => restaurant.company === 'Compass Group'
-    );
-    teeRavintolaLista(filteredRestaurants);
-  });
-
-  resetBTN.addEventListener('click', () => {
-    teeRavintolaLista(restaurants);
-  });
-
-  // Näytä kaikki ravintolat aluksi
-  teeRavintolaLista(restaurants);
-});
