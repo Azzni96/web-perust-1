@@ -1,8 +1,8 @@
 'use strict';
 import './style.css';
-import { restaurantModal, restaurantRow } from './components.ts';
-import { fetchData } from './Fetchdata.ts';
-import { apiURL } from './variables.ts';
+import {restaurantModal, restaurantRow} from './components.ts';
+import {fetchData} from './Fetchdata.ts';
+import {apiURL} from './variables.ts';
 import * as L from 'leaflet';
 
 const kohde = document.querySelector('tbody') as HTMLTableSectionElement;
@@ -10,6 +10,14 @@ const modaali = document.querySelector('dialog') as HTMLDialogElement;
 const info = document.querySelector('#info') as HTMLElement;
 const closeModal = document.querySelector('#close-modal') as HTMLElement;
 const logoutBTN = document.querySelector('#logout-button') as HTMLElement;
+
+const kutsuRavintolat = async () => {
+  const restaurants = await fetchRestaurants();
+  teeRavintolaLista(restaurants);
+};
+
+// avatun ravintolan objekti tallentuu tähän
+let openedRestaurant = {} as Restaurant;
 
 let map: L.Map;
 let markers: L.Marker[] = [];
@@ -19,7 +27,10 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker
       .register('./sw.js')
       .then((registration) => {
-        console.log('Service Worker registered with scope:', registration.scope);
+        console.log(
+          'Service Worker registered with scope:',
+          registration.scope
+        );
       })
       .catch((error) => {
         console.log('Service Worker registration failed:', error);
@@ -54,9 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Function to update the menu display
-function updateMenuDisplay() {
+async function updateMenuDisplay() {
   const weeklyMenu = document.getElementById('weekly-menu');
   const dailyMenu = document.getElementById('daily-menu');
+
+  console.log('showWeekly:', showWeekly); // Debug message
 
   if (showWeekly) {
     weeklyMenu?.classList.remove('hidden');
@@ -64,6 +77,14 @@ function updateMenuDisplay() {
   } else {
     weeklyMenu?.classList.add('hidden');
     dailyMenu?.classList.remove('hidden');
+  }
+
+  if (showWeekly) {
+    console.log('Fetching weekly menu for:', openedRestaurant); // Debug message
+    await displayWeeklyMenu(openedRestaurant._id);
+  } else {
+    console.log('Fetching daily menu for:', openedRestaurant); // Debug message
+    await displayDailyMenu(openedRestaurant._id, openedRestaurant);
   }
 }
 
@@ -112,7 +133,7 @@ function handleSearch(): void {
   updateMapMarkers(filteredRestaurants);
 
   if (filteredRestaurants.length > 0) {
-    const { coordinates } = filteredRestaurants[0].location;
+    const {coordinates} = filteredRestaurants[0].location;
     const [longitude, latitude] = coordinates;
     if (latitude && longitude && !isNaN(latitude) && !isNaN(longitude)) {
       map.setView([latitude, longitude], 13);
@@ -139,9 +160,9 @@ async function fetchRestaurants(): Promise<Restaurant[]> {
 async function loadRestaurants(): Promise<void> {
   const restaurants = await fetchRestaurants();
   restaurants.forEach((restaurant) => {
-    const { _id, name, company, address, location } = restaurant;
+    const {_id, name, company, address, location} = restaurant;
     const [longitude, latitude] = location.coordinates;
-    const row = restaurantRow({ name, company, address });
+    const row = restaurantRow({name, company, address});
     (row as HTMLElement).dataset.id = _id;
     (row as HTMLElement).dataset.latitude = latitude.toString();
     (row as HTMLElement).dataset.longitude = longitude.toString();
@@ -175,7 +196,7 @@ function updateMapMarkers(restaurants: Restaurant[]): void {
   markers = [];
 
   restaurants.forEach((restaurant) => {
-    const { location, name, address } = restaurant;
+    const {location, name, address} = restaurant;
     const [longitude, latitude] = location.coordinates;
 
     if (latitude && longitude) {
@@ -198,10 +219,7 @@ if (username) {
 }
 
 // Load restaurant list
-document.addEventListener('DOMContentLoaded', async () => {
-  const restaurants = await fetchRestaurants();
-  teeRavintolaLista(restaurants);
-});
+document.addEventListener('DOMContentLoaded', kutsuRavintolat);
 
 // Populate restaurant table with rows
 const teeRavintolaLista = (restaurants: Restaurant[]): void => {
@@ -211,7 +229,8 @@ const teeRavintolaLista = (restaurants: Restaurant[]): void => {
 
   restaurants.forEach((restaurant) => {
     if (restaurant) {
-      const { _id } = restaurant;
+      const {_id} = restaurant;
+      openedRestaurant = restaurant;
 
       const rivi = restaurantRow(restaurant);
       (rivi as HTMLElement).dataset.latitude =
@@ -280,7 +299,15 @@ async function displayDailyMenu(_id: string, restaurant: Restaurant) {
 // Fetch and display Weekly Menu
 async function displayWeeklyMenu(restaurantId: string): Promise<void> {
   try {
-    const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const daysOfWeek = [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday',
+    ];
     let menuHTML = '';
 
     for (const day of daysOfWeek) {
@@ -310,7 +337,10 @@ async function displayWeeklyMenu(restaurantId: string): Promise<void> {
 }
 
 // Fetch Daily Menu for a specific day
-async function fetchDailyMenuForDay(restaurantId: string, day: string): Promise<DailyMenu> {
+async function fetchDailyMenuForDay(
+  restaurantId: string,
+  day: string
+): Promise<DailyMenu> {
   try {
     const response = await fetchData<DailyMenu>(
       apiURL + `/api/v1/restaurants/daily/${restaurantId}/fi?day=${day}`
@@ -319,7 +349,7 @@ async function fetchDailyMenuForDay(restaurantId: string, day: string): Promise<
     return response;
   } catch (error) {
     console.error(`Failed to fetch daily menu for ${day}:`, error);
-    return { courses: [] };
+    return {courses: []};
   }
 }
 
@@ -338,8 +368,6 @@ interface Restaurant {
   };
   company: string;
 }
-
-
 
 interface DailyMenu {
   courses: Course[];
