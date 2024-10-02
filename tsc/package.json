@@ -1,0 +1,19 @@
+{
+  "name": "tsc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "rollup": "^4.21.2",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "rollup-watch": "^4.3.1"
+  },
+  "type": "module"
+}

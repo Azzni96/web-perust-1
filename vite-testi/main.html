@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurant List</title>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+
+  <body>
+    <nav>
+      <ul>
+        <li><h1>Restaurant List</h1></li>np
+        <li><a href="main.html">Restaurant</a></li>
+      </ul>
+      <div id="logname">
+      <div id="name"></div>
+      <button id="logout-button">Log out</button>
+    </div>
+    </nav>
+    <main>
+        <section id="search-section">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search restaurants..."
+          />
+          <button id="search-button">Search</button>
+        </section>
+        <div id="tablemap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Company</th>
+                <th>Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- add restaurants here -->
+            </tbody>
+          </table>
+          <div id="map" style="height: 400px"></div>
+        </div>
+      </section>
+      <dialog>
+        <div>
+          <button id="close-modal">&#215;</button>
+        </div>
+
+        <button id="show-daily-menu">Show Daily Menu</button>
+        <button id="show-weekly-menu">Show Weekly Menu</button>
+
+        <div id="daily-menu" class="hidden">Daily Menu Content</div>
+        <div id="weekly-menu" class="hidden">Weekly Menu Content</div>
+        <div id="info">
+          <!-- add restaurant info here when restaurant is clicked -->
+        </div>
+      </dialog>
+    </main>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <footer>
+      <h3>&COPY; 2024 Azzni. All rights reserved.</h3>
+    </footer>
+    <script type="module" src="/src/RavintolaLista.ts" defer></script>
+
+
+  </body>
+</html>

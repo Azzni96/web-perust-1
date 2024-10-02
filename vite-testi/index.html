@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+
+  <body>
+    <nav>
+      <ul>
+        <li><h1>Restaurant List</h1></li>
+        <li><a href="">HOME</a></li>
+        <li><a href="#" id="aboutLink">About</a></li>
+      </ul>
+      <div class="SignBtn">
+        <button id="signUpbtn">Sign Up</button>
+        <button id="signInbtn">Sign In</button>
+      </div>
+    </nav>
+    <main>
+      <section id="content"></section>
+
+      <dialog>
+        <div>
+          <button id="close-modal">&#215;</button>
+        </div>
+        <div id="info">
+          <!-- add restaurant info here when restaurant is clicked -->
+        </div>
+      </dialog>
+    </main>
+    <footer>
+      <h3>&COPY; 2024 Azzni. All rights reserved.</h3>
+    </footer>
+    <script type="module" src="/src/main.ts" defer></script>
+  </body>
+</html>
