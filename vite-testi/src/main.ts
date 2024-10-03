@@ -1,31 +1,33 @@
-import './style.css';
-import { signup, login } from "./sginapi.ts";
-import { apiURL } from "./variables.ts";
+import '../public/style.css';
+import {signup, login} from './sginapi.ts';
+import {apiURL} from './variables.ts';
 
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("signUpbtn")?.addEventListener("click", showSignUp);
-  document.getElementById("signInbtn")?.addEventListener("click", showSignIn);
-  document.getElementById("aboutLink")?.addEventListener("click", showAbout);
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('signUpbtn')?.addEventListener('click', showSignUp);
+  document.getElementById('signInbtn')?.addEventListener('click', showSignIn);
+  document.getElementById('aboutLink')?.addEventListener('click', showAbout);
   checkLoginStatus();
 
   // Register the service worker for PWA
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker
-        .register('./sw.js')
+        .register('./sw.ts')
         .then((registration) => {
-          console.log('Service Worker registered with scope:', registration.scope);
+          console.log(
+            'Service Worker registered with scope:',
+            registration.scope
+          );
         })
         .catch((error) => {
           console.log('Service Worker registration failed:', error);
         });
     });
   }
-
 });
 
 function showSignUp() {
-  const content = document.getElementById("content");
+  const content = document.getElementById('content');
   if (content) {
     content.innerHTML = `
       <h2>Sign Up</h2>
@@ -40,13 +42,13 @@ function showSignUp() {
       </form>
     `;
     document
-      .getElementById("signup-form")
-      ?.addEventListener("submit", handleSignup);
+      .getElementById('signup-form')
+      ?.addEventListener('submit', handleSignup);
   }
 }
 
 function showSignIn() {
-  const content = document.getElementById("content");
+  const content = document.getElementById('content');
   if (content) {
     content.innerHTML = `
       <h2>Sign In</h2>
@@ -59,13 +61,13 @@ function showSignIn() {
       </form>
     `;
     document
-      .getElementById("signin-form")
-      ?.addEventListener("submit", handleSignIn);
+      .getElementById('signin-form')
+      ?.addEventListener('submit', handleSignIn);
   }
 }
 
 function showAbout() {
-  const content = document.getElementById("content");
+  const content = document.getElementById('content');
   if (content) {
     content.innerHTML = `
       <h2>About</h2>
@@ -76,17 +78,22 @@ function showAbout() {
 
 function handleSignup(event: Event) {
   event.preventDefault();
-  const username = (document.getElementById("signup-username") as HTMLInputElement).value;
-  const email = (document.getElementById("signup-email") as HTMLInputElement).value;
-  const password = (document.getElementById("signup-password") as HTMLInputElement).value;
+  const username = (
+    document.getElementById('signup-username') as HTMLInputElement
+  ).value;
+  const email = (document.getElementById('signup-email') as HTMLInputElement)
+    .value;
+  const password = (
+    document.getElementById('signup-password') as HTMLInputElement
+  ).value;
 
   if (!username || !email || !password) {
-    alert("All fields are required.");
+    alert('All fields are required.');
     return;
   }
 
   if (!validateEmail(email)) {
-    alert("Please enter a valid email address.");
+    alert('Please enter a valid email address.');
     return;
   }
 
@@ -95,11 +102,15 @@ function handleSignup(event: Event) {
 
 function handleSignIn(event: Event) {
   event.preventDefault();
-  const username = (document.getElementById("signin-username") as HTMLInputElement).value;
-  const password = (document.getElementById("signin-password") as HTMLInputElement).value;
+  const username = (
+    document.getElementById('signin-username') as HTMLInputElement
+  ).value;
+  const password = (
+    document.getElementById('signin-password') as HTMLInputElement
+  ).value;
 
   if (!username || !password) {
-    alert("All fields are required.");
+    alert('All fields are required.');
     return;
   }
 
@@ -112,23 +123,23 @@ function validateEmail(email: string): boolean {
 }
 
 function checkLoginStatus() {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
   if (token) {
-    fetch(apiURL + "/api/v1/auth/me", {
-      method: "GET",
+    fetch(apiURL + '/api/v1/auth/', {
+      method: 'GET',
       headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log("User data", data);
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('User data', data);
         // Update the UI with user data
         displayLoggedInMessage(data.username);
       })
-      .catch(error => {
-        console.error("Error fetching user data", error);
+      .catch((error) => {
+        console.error('Error fetching user data', error);
         displayLoggedInMessage();
       });
   } else {
@@ -138,13 +149,13 @@ function checkLoginStatus() {
 }
 
 function displayLoggedInMessage(username?: string) {
-  const messageElement = document.getElementById("logged-in-message");
+  const messageElement = document.getElementById('logged-in-message');
   if (messageElement) {
-    const storedUsername = username || localStorage.getItem("username");
+    const storedUsername = username || localStorage.getItem('username');
     if (storedUsername) {
       messageElement.textContent = `User ${storedUsername} is logged in.`;
     } else {
-      messageElement.textContent = "No user is logged in.";
+      messageElement.textContent = 'No user is logged in.';
     }
   }
 }

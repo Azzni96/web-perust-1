@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="icon" type="image/svg+xml" href="/app-icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Restaurant List</title>
 
@@ -12,7 +13,7 @@
     />
     <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="theme-color" content="#ffffff" />
-    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="stylesheet" href="/public/style.css" />
   </head>
 
   <body>
@@ -55,10 +56,10 @@
         <div>
           <button id="close-modal">&#215;</button>
         </div>
-
-        <button id="show-daily-menu">Show Daily Menu</button>
-        <button id="show-weekly-menu">Show Weekly Menu</button>
-
+        <div id="daily-weekly-menu">
+        <button id="show-daily-menu">Week Menu</button>
+        <button id="show-weekly-menu">Day Menu</button>
+      </div>
         <div id="daily-menu" class="hidden">Daily Menu Content</div>
         <div id="weekly-menu" class="hidden">Weekly Menu Content</div>
         <div id="info">

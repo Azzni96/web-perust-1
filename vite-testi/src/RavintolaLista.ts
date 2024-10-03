@@ -1,5 +1,5 @@
 'use strict';
-import './style.css';
+import '../public/style.css';
 import {restaurantModal, restaurantRow} from './components.ts';
 import {fetchData} from './Fetchdata.ts';
 import {apiURL} from './variables.ts';
@@ -25,7 +25,7 @@ let showWeekly = false; // Toggle to switch between daily and weekly menu
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
-      .register('./sw.js')
+      .register('./sw.ts')
       .then((registration) => {
         console.log(
           'Service Worker registered with scope:',

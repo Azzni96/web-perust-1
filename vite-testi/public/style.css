@@ -270,3 +270,51 @@ footer {
 .hidden {
   display: none;
 }
+#daily-weekly-menu {
+  background-color: #9a7821;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 5px 90px;
+}
+#show-daily-menu, #show-weekly-menu {
+  background-color: #000;
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#show-daily-menu:hover, #show-weekly-menu:hover{
+  background-color: #edad0d;
+  color: #000;
+}
+#weekly-menu, #daily-menu {
+  background-color: #edad0d;
+  text-align: center;
+  padding: 10px;
+}
+#close-modal{
+  border: 1px solid #000;
+  border-radius: 5px;
+  background-color: #000;
+  color: #fff;
+  padding: 0 2px;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+#close-modal:hover{
+  background-color: #edad0d;
+  color: #000;
+}
+div p{
+  color: black;
+}
+div p strong{
+  border: 2px solid black;
+}
+div h4{
+  border: 2px solid black;
+  width: 80%;
+  text-align: center;
+}

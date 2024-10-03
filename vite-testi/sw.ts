@@ -7,9 +7,8 @@ const urlsToCache = [
   './index.html',
   './main.html',
   './index.js',
-  //'./dist/src/style.css', // Ensure the path matches where the file is actually located in dist
-  // './dist/src/RavintolaLista.js', // Transpiled file path
-  // './dist/src/main.js', // Transpiled file path
+  './style.css', // Ensure the path matches where the file is actually located in dist
+  './main.js', // Transpiled file path
   'https://unpkg.com/leaflet@1.7.1/dist/leaflet.css',
   'https://unpkg.com/leaflet@1.7.1/dist/leaflet.js', // Add any additional assets here
 ];
