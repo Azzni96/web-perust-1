@@ -6,7 +6,7 @@ export default defineConfig({
     // Set the output directory to be within your project
     outDir: resolve(__dirname, 'dist'),
 
-    // Configure Rollup to use both index.html and main.html as entry points
+    // Configure Rollup to use both index.html, main.html, and sw.ts as entry points
     rollupOptions: {
       input: {
         index: resolve(__dirname, 'index.html'), // Path to index.html
@@ -14,12 +14,19 @@ export default defineConfig({
         sw: resolve(__dirname, 'sw.ts'), // Add sw.ts here to compile it separately
       },
       output: {
-        // This ensures that sw.js is output at the root of the dist folder
+        // Ensure that sw.js is output at the root of the dist folder
         entryFileNames: (chunkInfo) => {
           if (chunkInfo.name === 'sw') return 'sw.js';
           return '[name].js';
         },
       },
     },
+
+    // Optional optimizations
+    minify: 'esbuild', // Set minifier to 'esbuild' or 'terser'
+    sourcemap: true, // Generate source maps for debugging
+
+    cssCodeSplit: true, // Enable code splitting for CSS
+    chunkSizeWarningLimit: 500, // Set the size limit to 500kb
   },
 });

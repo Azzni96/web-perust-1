@@ -70,8 +70,16 @@ function showAbout() {
   const content = document.getElementById('content');
   if (content) {
     content.innerHTML = `
-      <h2>About</h2>
-      <p>This is the about page.</p>
+  <div id="About"><h2>About Us</h2>
+  <p>
+    We are passionate about providing the best service for our users. Our goal is to deliver quality content and seamless experience across all platforms.
+  </p>
+  <ul>
+    <li><a href="https://www.facebook.com/nihad.alazzam.1" target="_blank" id="Media">Facebook</a></li>
+    <li><a href="https://www.instagram.com/azzni.jr" target="_blank" id="Media">Instagram</a></li>
+    <li>Phone: <a>+358 458006887</a></li>
+    <li>Email:<a href="mailto:nihadazzam96@gmail.com">nihadazzam96@gmail.com</a></li>
+  </ul> </div>
     `;
   }
 }
@@ -125,7 +133,7 @@ function validateEmail(email: string): boolean {
 function checkLoginStatus() {
   const token = localStorage.getItem('token');
   if (token) {
-    fetch(apiURL + '/api/v1/auth/', {
+    fetch(apiURL + '/api/v1/auth/login', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
